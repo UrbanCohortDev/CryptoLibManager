@@ -2,7 +2,7 @@
 Help with installing the CryptoLibs from Xor-el
 
 This rough (very) application enables you to easily install the crypto libraries developed by Xor-el. 
-These can be found at 
+These can be found at https://github.com/Xor-el
 
 One issue is that they are multi level directory wise and that can make it hard work to install into multiple Delphi Versions.
 

@@ -2,8 +2,8 @@ object MainFormNew: TMainFormNew
   Left = 0
   Top = 0
   Caption = 'Manager for Ugo'#39's Crypto Libraries'
-  ClientHeight = 635
-  ClientWidth = 714
+  ClientHeight = 619
+  ClientWidth = 687
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -62,13 +62,15 @@ object MainFormNew: TMainFormNew
   object LogMemo: TMemo
     AlignWithMargins = True
     Left = 3
-    Top = 389
-    Width = 708
+    Top = 373
+    Width = 681
     Height = 243
     Align = alBottom
     ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 0
+    ExplicitTop = 195
+    ExplicitWidth = 618
   end
   object GitPath: TEdit
     Left = 8
@@ -170,13 +172,13 @@ object MainFormNew: TMainFormNew
   object Panel1: TPanel
     AlignWithMargins = True
     Left = 3
-    Top = 342
-    Width = 708
+    Top = 326
+    Width = 681
     Height = 41
     Align = alBottom
     TabOrder = 11
-    ExplicitLeft = -2
-    ExplicitTop = 318
+    ExplicitTop = 148
+    ExplicitWidth = 618
     object Button1: TButton
       AlignWithMargins = True
       Left = 4
@@ -186,9 +188,6 @@ object MainFormNew: TMainFormNew
       Action = CloneUpdateAction
       Align = alLeft
       TabOrder = 0
-      ExplicitLeft = 10
-      ExplicitTop = 16
-      ExplicitHeight = 25
     end
     object SaveSettingsButton: TButton
       AlignWithMargins = True
@@ -199,12 +198,10 @@ object MainFormNew: TMainFormNew
       Action = SaveSettingsAction
       Align = alLeft
       TabOrder = 1
-      ExplicitTop = 16
-      ExplicitHeight = 25
     end
     object CloseAppButton: TButton
       AlignWithMargins = True
-      Left = 629
+      Left = 602
       Top = 4
       Width = 75
       Height = 33
@@ -212,9 +209,7 @@ object MainFormNew: TMainFormNew
       Caption = 'Close App'
       TabOrder = 2
       OnClick = CloseAppButtonClick
-      ExplicitLeft = 631
-      ExplicitTop = 16
-      ExplicitHeight = 25
+      ExplicitLeft = 539
     end
   end
   object ActionList1: TActionList

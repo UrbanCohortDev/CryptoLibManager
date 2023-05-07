@@ -10,6 +10,8 @@ Type
 
   TDelphiVersion = (Seattle, Berlin, Tokyo, Rio, Sydney, Alexandria);
 
+  TDelphiVersionSet = Set of TDelphiVersion;
+
   TDelphiVersions = Class
   Private
     FVersionList: TStrings;
@@ -17,7 +19,7 @@ Type
     FRegistry: TRegistry;
     Procedure LoadAvailableVersions;
     Function LookUpVersionName(Const Value: String): String;
-    Function LibraryKey(AVersion: String): String;
+
     Function GetVersion(Const AName: String): Integer;
     Function GetAvailableVersionName(Const Index: Integer): String;
   Public
@@ -28,24 +30,28 @@ Type
     Procedure SaveAndCloseLibrary;
     Procedure CloseLibrary;
     Function AddToLibrary(APath: String): boolean;
-    Procedure SupportedPlatformsToStrings(const AVersion: String; Strings: TStrings);
+    Procedure SupportedPlatformsToStrings(const AVersion: String;
+      Strings: TStrings);
     Procedure AppendPaths(Strings: TStrings);
+    Function LibraryKey(AVersion: String): String;
 
     Property Version[Const AName: String]: Integer Read GetVersion;
-    Property AvailableVersionName[Const Index: Integer]: String Read GetAvailableVersionName;
+    Property AvailableVersionName[Const Index: Integer]: String
+      Read GetAvailableVersionName;
   End;
 
 const
-DELPHI_BDS_VERSION: Array[TDelphiVersion] of Integer = (
-17 //Seattle = 17
-,18 //Berlin = 18
-,19 //Tokyo = 19
-,20 //Rio = 20,
-,21 //Sydney = 21
-,22 //Alexandria
-);
+  DELPHI_BDS_VERSION: Array [TDelphiVersion] of Integer = (17 // Seattle = 17
+    , 18 // Berlin = 18
+    , 19 // Tokyo = 19
+    , 20 // Rio = 20,
+    , 21 // Sydney = 21
+    , 22 // Alexandria
+    );
 
-BASE_VERSION_NUM = 17;
+  BASE_VERSION_NUM = 17;
+
+function DelphiVersions: TDelphiVersions;
 
 Implementation
 
@@ -59,7 +65,17 @@ ResourceString
   SRootPath = '\Software\Embarcadero\BDS\';
   SSearchPath = 'Search Path';
 
-  { TDelphiVersions }
+var
+  FDelphiVersions: TDelphiVersions;
+
+function DelphiVersions: TDelphiVersions;
+begin
+  if not Assigned(FDelphiVersions) then
+    FDelphiVersions := TDelphiVersions.Create;
+  Result := FDelphiVersions;
+end;
+
+{ TDelphiVersions }
 
 Function TDelphiVersions.AddToLibrary(APath: String): boolean;
 Begin
@@ -105,7 +121,8 @@ End;
 
 Function TDelphiVersions.GetVersion(Const AName: String): Integer;
 Begin
-  Result := DELPHI_BDS_VERSION[TRttiEnumerationType.GetValue<TDelphiVersion>(AName)];
+  Result := DELPHI_BDS_VERSION
+    [TRttiEnumerationType.GetValue<TDelphiVersion>(AName)];
 End;
 
 Function TDelphiVersions.GetAvailableVersionName(Const Index: Integer): String;
@@ -174,8 +191,10 @@ Begin
   Result := TRttiEnumerationType.GetName<TDelphiVersion>(lVersion);
 End;
 
-Function TDelphiVersions.OpenLibrary(AVersion, APlatform, ABackUpFolder: String): boolean;
-var lSearchPath: String;
+Function TDelphiVersions.OpenLibrary(AVersion, APlatform,
+  ABackUpFolder: String): boolean;
+var
+  lSearchPath: String;
 Begin
   If FRegistry <> Nil Then
     FRegistry.Free;
@@ -194,14 +213,13 @@ Begin
 
   lSearchPath := FRegistry.ReadString(SSearchPath);
   if ABackUpFolder <> '' then
-     TFile.WriteAllText(TPath.Combine(ABackupFolder, AVersion + '_' + APlatform + '_SearchPath.bak'), lSearchPath);
+    TFile.WriteAllText(TPath.Combine(ABackUpFolder, AVersion + '_' + APlatform +
+      '_SearchPath.bak'), lSearchPath);
   FCurrentPaths := TStringList.Create;
   FCurrentPaths.Delimiter := ';';
   FCurrentPaths.StrictDelimiter := True;
 
   FCurrentPaths.DelimitedText := lSearchPath;
-
-
 
 End;
 
@@ -214,11 +232,10 @@ Begin
   FRegistry := Nil;
 End;
 
-procedure TDelphiVersions.SupportedPlatformsToStrings(const AVersion: String; Strings: TStrings);
+procedure TDelphiVersions.SupportedPlatformsToStrings(const AVersion: String;
+  Strings: TStrings);
 Var
   Registry: TRegistry;
-  I: Integer;
-  lName: String;
 Begin
 
   Registry := TRegistry.Create;
@@ -232,8 +249,13 @@ Begin
     Registry.Free;
   End;
 
-
-
 end;
+
+initialization
+
+finalization
+
+if Assigned(FDelphiVersions) then
+  FDelphiVersions.Free;
 
 End.

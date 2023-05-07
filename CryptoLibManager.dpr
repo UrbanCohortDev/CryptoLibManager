@@ -1,15 +1,14 @@
 program CryptoLibManager;
-
 uses
   Vcl.Forms,
-  MainForm in 'MainForm.pas' {Form1},
-  UC.Delphi.Versions in 'UC.Delphi.Versions.pas';
+  UC.Delphi.Versions in 'UC.Delphi.Versions.pas',
+  MainForm2 in 'MainForm2.pas' {MainFormNew},
+  CryptoLibProcessor in 'CryptoLibProcessor.pas';
 
 {$R *.res}
-
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TMainFormNew, MainFormNew);
   Application.Run;
 end.

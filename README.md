@@ -1,16 +1,18 @@
 # CryptoLibManager
 Help with installing the CryptoLibs from Xor-el
 
-This rough (very) application enables you to easily install the crypto libraries developed by Xor-el. 
-These can be found at https://github.com/Xor-el
+This  application enables you to easily install the crypto libraries developed by Xor-el. 
+These can be found at https://github.com/Xor-el. This application will clone and update the required repositories direct from GitHub. You will need Git installed on your PC.
 
-One issue is that they are multi level directory wise and that can make it hard work to install into multiple Delphi Versions.
+One issue is that they are multi level directory wise and that can make it hard work to install into multiple Delphi Versions. This app will do that for you, if that's the scheme you want.
 
-What you need to do is clone into a master directory, say c:\cryptolibs with each library in its own foler.
+The only 3rd party package required is TurboPack/DOSCommand. This is avalailable from GetIt or direct from Github https://github.com/TurboPack/DOSCommand.
 
-The app gives you 2 options:
-- Map the required folders to the Delphi Library paths
-- create single folders for each Library with all teh source code in - which makes it a case of one map per folder.
+
+The app gives you 3 options:
+- create a single folder with all the libraries combined, but not mapped into Delphi's library paths. This is what to use if you plan to add the search path to your project's environment as you only need to one path; 
+- create a single folder with all the libraries combined and map that path into Delphi's library paths. 
+- Map all the required folders to the Delphi Library paths
 
 Tidy it up and send a pull request if you fancy it.
 
